@@ -50,6 +50,44 @@ class Welcome extends CI_Controller {
 		echo tgl_ind($tgl);
 	 }
 
+	public function kalkulator(){
+		$this->load->view('form_kalkulator');
+	}
+
+	public function aksi_kalkulator(){
+		$angka1 = $this->input->post('angka1');
+		$angka2 = $this->input->post('angka2');
+		$operasi = $this->input->post('operasi');
+		$this->form_validation->set_rules('angka1','Angka 1','required|numeric');
+		$this->form_validation->set_rules('angka2','Angka 2','required|numeric');
+		if($this->form_validation->run() != false){
+		switch ($operasi){
+			case "penjumplahan":
+				$hasil = $angka1+$angka2;
+				echo "Hasil Penjumplahan Antara ".$angka1." + ".angka2." adalah = ".$hasil;echo "<hr>";
+				echo "<a href=".site_url('welcome/kalkulator').">Kembali ke form perhitungan</a>";
+				break;
+			case "pengurangan":
+				$hasil = $angka1-$angka2;
+				echo "Hasil pengurangan Antara ".$angka1." - ".angka2." adalah = ".$hasil;echo "<hr>";
+				echo "<a href=".site_url('welcome/kalkulator').">Kembali ke form perhitungan</a>";
+				break;
+			case "perkalian":
+				$hasil = $angka1*$angka2;
+				echo "Hasil perkalian Antara ".$angka1." * ".angka2." adalah = ".$hasil;echo "<hr>";
+				echo "<a href=".site_url('welcome/kalkulator').">Kembali ke form perhitungan</a>";
+				break;		
+			case "pembagian":
+				$hasil = $angka1/$angka2;
+				echo "Hasil pembagian Antara ".$angka1." / ".angka2." adalah = ".$hasil;echo "<hr>";
+				echo "<a href=".site_url('welcome/kalkulator').">Kembali ke form perhitungan</a>";
+				break;
+		}
+		}else{
+			$this->load->view('form_kalkulator');
+		}
+	}
+
 	public function upload_file()
 	{
 		$this->load->view('form_upload');
